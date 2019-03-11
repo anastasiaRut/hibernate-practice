@@ -4,20 +4,19 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "levels")
+public class Level {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> users;
+    @ManyToMany(mappedBy = "levels",fetch = FetchType.EAGER)
+    private Set<Tutor> tutors;
 
-    public Role() {
-
+    public Level() {
     }
 
     public Long getId() {
@@ -29,11 +28,18 @@ public class Role {
     }
 
     public String getName() {
-
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Tutor> getTutors() {
+        return tutors;
+    }
+
+    public void setTutors(Set<Tutor> tutors) {
+        this.tutors = tutors;
     }
 }

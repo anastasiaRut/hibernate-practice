@@ -14,5 +14,7 @@
         <mapping class="com.it.model.User"></mapping>
         <mapping class="com.it.model.Role"></mapping>
         <mapping class="com.it.model.Language"></mapping>
+        <mapping class="com.it.model.Level"></mapping>
+        <mapping class="com.it.model.Tutor"></mapping>
     </session-factory>
 </hibernate-configuration>

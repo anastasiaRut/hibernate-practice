@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "username")
     private String username;
@@ -25,11 +25,19 @@ public class User {
     private String e_mail;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roleID")
+    @JoinColumn(name = "role_id")
     private Role role;
 
     public User() {
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -61,6 +69,7 @@ public class User {
     }
 
     public void setSurname(String surname) {
+
         this.surname = surname;
     }
 
@@ -69,6 +78,7 @@ public class User {
     }
 
     public void setE_mail(String e_mail) {
+
         this.e_mail = e_mail;
     }
 
