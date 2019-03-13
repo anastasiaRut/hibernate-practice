@@ -1,6 +1,7 @@
 package com.it.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -28,8 +29,22 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @OneToMany(mappedBy = "user")
+    private Set<StudentCourse> studentCourses;
+
+    @OneToMany(mappedBy = "user")
+    private Set<StudentEvent> studentEvents;
+
     public User() {
 
+    }
+
+    public Set<StudentCourse> getStudentCourses() {
+        return studentCourses;
+    }
+
+    public void setStudentCourses(Set<StudentCourse> studentCourses) {
+        this.studentCourses = studentCourses;
     }
 
     public Long getId() {
@@ -88,5 +103,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<StudentEvent> getStudentEvents() {
+        return studentEvents;
+    }
+
+    public void setStudentEvents(Set<StudentEvent> studentEvents) {
+        this.studentEvents = studentEvents;
     }
 }

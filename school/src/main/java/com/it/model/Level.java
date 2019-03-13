@@ -13,8 +13,8 @@ public class Level {
     @Column
     private String name;
 
-    @ManyToMany(mappedBy = "levels",fetch = FetchType.EAGER)
-    private Set<Tutor> tutors;
+    @OneToMany(mappedBy = "level")
+    private Set<TutorLevel> tutorLevels;
 
     public Level() {
     }
@@ -35,11 +35,11 @@ public class Level {
         this.name = name;
     }
 
-    public Set<Tutor> getTutors() {
-        return tutors;
+    public Set<TutorLevel> getTutorLevels() {
+        return tutorLevels;
     }
 
-    public void setTutors(Set<Tutor> tutors) {
-        this.tutors = tutors;
+    public void setTutorLevels(Set<TutorLevel> tutorLevels) {
+        this.tutorLevels = tutorLevels;
     }
 }

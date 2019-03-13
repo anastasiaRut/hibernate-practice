@@ -16,5 +16,11 @@
         <mapping class="com.it.model.Language"></mapping>
         <mapping class="com.it.model.Level"></mapping>
         <mapping class="com.it.model.Tutor"></mapping>
+        <mapping class="com.it.model.TypeOfCourse"></mapping>
+        <mapping class="com.it.model.TutorLevel"></mapping>
+        <mapping class="com.it.model.StudentCourse"></mapping>
+        <mapping class="com.it.model.Course"></mapping>
+        <mapping class="com.it.model.Event"></mapping>
+        <mapping class="com.it.model.StudentEvent"></mapping>
     </session-factory>
 </hibernate-configuration>
