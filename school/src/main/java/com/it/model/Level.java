@@ -10,11 +10,14 @@ public class Level {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "level")
-    private Set<TutorLevel> tutorLevels;
+    @ManyToMany(mappedBy = "levels", fetch = FetchType.LAZY)
+    private Set<Tutor> tutors;
+
+    @OneToMany(mappedBy = "level", fetch = FetchType.LAZY)
+    private Set<Course> courses;
 
     public Level() {
     }
@@ -35,11 +38,19 @@ public class Level {
         this.name = name;
     }
 
-    public Set<TutorLevel> getTutorLevels() {
-        return tutorLevels;
+    public Set<Tutor> getTutors() {
+        return tutors;
     }
 
-    public void setTutorLevels(Set<TutorLevel> tutorLevels) {
-        this.tutorLevels = tutorLevels;
+    public void setTutors(Set<Tutor> tutors) {
+        this.tutors = tutors;
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }

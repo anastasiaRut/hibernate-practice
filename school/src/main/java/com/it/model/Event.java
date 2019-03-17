@@ -22,11 +22,11 @@ public class Event {
     private Integer places;
 
     @ManyToOne
-    @JoinColumn(name = "tutor_level_id", nullable = false)
-    private TutorLevel tutorLevel;
+    @JoinColumn(name = "tutor_id", nullable = false)
+    private Tutor tutor;
 
-    @OneToMany(mappedBy = "event")
-    private Set<StudentEvent> studentEvents;
+    @ManyToMany(mappedBy = "events", fetch = FetchType.LAZY)
+    private Set<Student> students;
 
     public Event() {
     }
@@ -63,19 +63,11 @@ public class Event {
         this.places = places;
     }
 
-    public TutorLevel getTutorLevel() {
-        return tutorLevel;
+    public Tutor getTutor() {
+        return tutor;
     }
 
-    public void setTutorLevel(TutorLevel tutorLevel) {
-        this.tutorLevel = tutorLevel;
-    }
-
-    public Set<StudentEvent> getStudentEvents() {
-        return studentEvents;
-    }
-
-    public void setStudentEvents(Set<StudentEvent> studentEvents) {
-        this.studentEvents = studentEvents;
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
     }
 }

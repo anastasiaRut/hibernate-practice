@@ -10,11 +10,14 @@ public class Language {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "language")
+    @OneToMany(mappedBy = "language", fetch = FetchType.LAZY)
     private Set<Tutor> tutors;
+
+    @OneToMany(mappedBy = "language", fetch = FetchType.LAZY)
+    private Set<ScheduleMaker> scheduleMakers;
 
     public Language() {
     }
@@ -41,5 +44,13 @@ public class Language {
 
     public void setTutors(Set<Tutor> tutors) {
         this.tutors = tutors;
+    }
+
+    public Set<ScheduleMaker> getScheduleMakers() {
+        return scheduleMakers;
+    }
+
+    public void setScheduleMakers(Set<ScheduleMaker> scheduleMakers) {
+        this.scheduleMakers = scheduleMakers;
     }
 }

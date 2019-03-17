@@ -27,13 +27,26 @@ public class Course {
     private TypeOfCourse typeOfCourse;
 
     @ManyToOne
-    @JoinColumn(name = "tutor_level_id", nullable = false)
-    private TutorLevel tutorLevel;
+    @JoinColumn(name = "tutor_id", nullable = false)
+    private Tutor tutor;
 
-    @OneToMany(mappedBy = "course")
+    @ManyToOne
+    @JoinColumn(name = "level_id", nullable = false)
+    private Level level;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private Set<StudentCourse> studentCourses;
 
     public Course() {
+    }
+
+    public Course(LocalDate startDate, Short places, Language language, TypeOfCourse typeOfCourse, Tutor tutor, Level level) {
+        this.startDate = startDate;
+        this.places = places;
+        this.language = language;
+        this.typeOfCourse = typeOfCourse;
+        this.tutor = tutor;
+        this.level = level;
     }
 
     public Long getId() {
@@ -85,11 +98,19 @@ public class Course {
         this.studentCourses = studentCourses;
     }
 
-    public TutorLevel getTutorLevel() {
-        return tutorLevel;
+    public Tutor getTutor() {
+        return tutor;
     }
 
-    public void setTutorLevel(TutorLevel tutorLevel) {
-        this.tutorLevel = tutorLevel;
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 }

@@ -1,39 +1,39 @@
 package com.it.dao.impl;
 
-import com.it.dao.StudentCourseDAO;
-import com.it.model.StudentCourse;
+import com.it.dao.ScheduleMakerDAO;
+import com.it.model.ScheduleMaker;
 import com.it.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class StudentCourseDAOImpl extends GenericDAOImpl<StudentCourse, Long> implements StudentCourseDAO {
-    private static StudentCourseDAOImpl instance;
+public class ScheduleMakerDAOImpl extends GenericDAOImpl<ScheduleMaker, Long> implements ScheduleMakerDAO {
+    private static ScheduleMakerDAOImpl instance;
 
-    private StudentCourseDAOImpl() {
-        super(StudentCourse.class);
+    private ScheduleMakerDAOImpl() {
+        super(ScheduleMaker.class);
     }
 
-    synchronized public static StudentCourseDAOImpl getInstance() {
+    synchronized public static ScheduleMakerDAOImpl getInstance() {
         if (instance == null) {
-            instance = new StudentCourseDAOImpl();
+            instance = new ScheduleMakerDAOImpl();
         }
         return instance;
     }
 
     /**
-     * Find all notes about Student and Courses
+     * Find page of All Schedule Makers
      * HQL implementation
      *
      * @param firstResult - firstResult
      * @param maxResult   - maxResult
-     * @return List<StudentCourse>
+     * @return List<ScheduleMaker>
      */
     @Override
-    public List<StudentCourse> findAll(Integer firstResult, Integer maxResult) {
+    public List<ScheduleMaker> findAll(Integer firstResult, Integer maxResult) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM StudentCourse";
+            String hql = "FROM ScheduleMaker";
             Query query = session.createQuery(hql);
             query.setFirstResult(firstResult);
             query.setMaxResults(maxResult);
@@ -42,18 +42,19 @@ public class StudentCourseDAOImpl extends GenericDAOImpl<StudentCourse, Long> im
     }
 
     /**
-     * Find unaccepted applications for enroll in Courses
-     * HQL implementation
+     * Find Schedule Makers by Language
      *
+     * @param language    - language
      * @param firstResult - firstResult
      * @param maxResult   - maxResult
-     * @return List<StudentCourse>
+     * @return List<ScheduleMaker>
      */
     @Override
-    public List<StudentCourse> findUnacceptedApplications(Integer firstResult, Integer maxResult) {
+    public List<ScheduleMaker> findListByLanguage(String language, Integer firstResult, Integer maxResult) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM StudentCourse studentCourse WHERE studentCourse.status = false";
+            String hql = "FROM ScheduleMaker scheduleMaker WHERE scheduleMaker.language.name = :name";
             Query query = session.createQuery(hql);
+            query.setParameter("name", language);
             query.setFirstResult(firstResult);
             query.setMaxResults(maxResult);
             return query.list();

@@ -21,8 +21,14 @@ public class Tutor {
     @JoinColumn(name = "language_id", nullable = false)
     private Language language;
 
-    @OneToMany(mappedBy = "tutor")
-    private Set<TutorLevel> tutorLevels;
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "tutors_levels",
+            joinColumns = {@JoinColumn(name = "tutor_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "level_id", nullable = false)})
+    private Set<Level> levels;
+
+    @OneToMany(mappedBy = "tutor", fetch = FetchType.LAZY)
+    private Set<Course> courses;
 
     public Tutor() {
 
@@ -60,11 +66,19 @@ public class Tutor {
         this.language = language;
     }
 
-    public Set<TutorLevel> getTutorLevels() {
-        return tutorLevels;
+    public Set<Level> getLevels() {
+        return levels;
     }
 
-    public void setTutorLevels(Set<TutorLevel> tutorLevels) {
-        this.tutorLevels = tutorLevels;
+    public void setLevels(Set<Level> levels) {
+        this.levels = levels;
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }

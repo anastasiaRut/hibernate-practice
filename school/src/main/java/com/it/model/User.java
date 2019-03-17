@@ -1,16 +1,16 @@
 package com.it.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
@@ -22,30 +22,18 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "e-mail")
+    @Column(name = "e_mail", unique = true)
     private String e_mail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
-    private Set<StudentCourse> studentCourses;
-
-    @OneToMany(mappedBy = "user")
-    private Set<StudentEvent> studentEvents;
 
     public User() {
 
     }
 
-    public Set<StudentCourse> getStudentCourses() {
-        return studentCourses;
-    }
-
-    public void setStudentCourses(Set<StudentCourse> studentCourses) {
-        this.studentCourses = studentCourses;
-    }
 
     public Long getId() {
         return id;
@@ -105,11 +93,4 @@ public class User {
         this.role = role;
     }
 
-    public Set<StudentEvent> getStudentEvents() {
-        return studentEvents;
-    }
-
-    public void setStudentEvents(Set<StudentEvent> studentEvents) {
-        this.studentEvents = studentEvents;
-    }
 }

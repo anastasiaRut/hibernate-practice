@@ -12,7 +12,7 @@ public class TypeOfCourse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String name;
 
     @Column(name = "time_type")
@@ -64,7 +64,7 @@ public class TypeOfCourse {
         return cost;
     }
 
-    public void setCost( BigDecimal cost) {
+    public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 }

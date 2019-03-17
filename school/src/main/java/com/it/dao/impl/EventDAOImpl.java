@@ -1,39 +1,39 @@
 package com.it.dao.impl;
 
-import com.it.dao.RoleDAO;
-import com.it.model.Role;
+import com.it.dao.EventDAO;
+import com.it.model.Event;
 import com.it.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class RoleDAOImpl extends GenericDAOImpl<Role, Long> implements RoleDAO {
-    private static RoleDAOImpl instance;
+public class EventDAOImpl extends GenericDAOImpl<Event, Long> implements EventDAO {
+    private static EventDAOImpl instance;
 
-    private RoleDAOImpl() {
-        super(Role.class);
+    private EventDAOImpl() {
+        super(Event.class);
     }
 
-    synchronized public static RoleDAOImpl getInstance() {
+    synchronized public static EventDAOImpl getInstance() {
         if (instance == null) {
-            instance = new RoleDAOImpl();
+            instance = new EventDAOImpl();
         }
         return instance;
     }
 
     /**
-     * Find page of All Roles
+     * Find page of All Events
      * HQL implementation
      *
      * @param firstResult - firstResult
      * @param maxResult   - maxResult
-     * @return List<Role>
+     * @return List<Event>
      */
     @Override
-    public List<Role> findAll(Integer firstResult, Integer maxResult) {
+    public List<Event> findAll(Integer firstResult, Integer maxResult) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM Role";
+            String hql = "FROM Event";
             Query query = session.createQuery(hql);
             query.setFirstResult(firstResult);
             query.setMaxResults(maxResult);
@@ -42,33 +42,36 @@ public class RoleDAOImpl extends GenericDAOImpl<Role, Long> implements RoleDAO {
     }
 
     /**
-     * Find Role and fetching Users
-     *
-     * @param nameOfRole - nameOfRole
-     * @return Role
-     */
-    @Override
-    public Role findRoleWithUsers(String nameOfRole) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM Role role JOIN FETCH role.users WHERE role.name = :name";
-            Query query = session.createQuery(hql);
-            query.setParameter("name", nameOfRole);
-            return (Role) query.getSingleResult();
-        }
-    }
-
-    /**
-     * Find page of All Roles and fetching Users
+     * Sort Events by cost
      * HQL implementation
      *
      * @param firstResult - firstResult
      * @param maxResult   - maxResult
-     * @return List<Role>
+     * @return List<Event>
      */
     @Override
-    public List<Role> findAllWithUsers(Integer firstResult, Integer maxResult) {
+    public List<Event> sortEventsByCost(Integer firstResult, Integer maxResult) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "FROM Role role JOIN FETCH role.users";
+            String hql = "FROM Event event order by event.cost desc";
+            Query query = session.createQuery(hql);
+            query.setFirstResult(firstResult);
+            query.setMaxResults(maxResult);
+            return query.list();
+        }
+    }
+
+    /**
+     * Find page of All Events and fetching Students
+     * HQL implementation
+     *
+     * @param firstResult - firstResult
+     * @param maxResult   - maxResult
+     * @return List<Event>
+     */
+    @Override
+    public List<Event> findEventsWithStudents(Integer firstResult, Integer maxResult) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM Event event JOIN FETCH event.students";
             Query query = session.createQuery(hql);
             query.setFirstResult(firstResult);
             query.setMaxResults(maxResult);
