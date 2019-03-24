@@ -37,7 +37,7 @@ public class Main {
             performRoleOperation();
             performStudentOperation();
             performScheduleMakerOperation();
-            performtTypeOfCourseOperation();
+            performTypeOfCourseOperation();
             performTutorsOperation();
             performEventsOperation();
             performCoursesOperation();
@@ -136,7 +136,7 @@ public class Main {
         }
     }
 
-    private static void performtTypeOfCourseOperation() {
+    private static void performTypeOfCourseOperation() {
         TypeOfCourse typeOfCourse = typeOfCourseDAO.getOne(1L);
         if (typeOfCourse == null) {
             typeOfCourse = new TypeOfCourse();
@@ -186,10 +186,10 @@ public class Main {
             event.setName("Book evening");
             event.setPlaces(15);
             event.setCost(new BigDecimal(7));
-            event.setTutor(tutorDAO.getOne(3L));
+            event.setTutor(tutorDAO.getOne(1L));
             eventDAO.save(event);
             Set<Event> events = new HashSet<>();
-            event.setPlaces(eventDAO.getOne(4L).getPlaces() - 1);
+            event.setPlaces(eventDAO.getOne(1L).getPlaces() - 1);
             events.add(event);
             eventDAO.update(event);
             Student student = studentDAO.getOne(1L);
@@ -207,7 +207,7 @@ public class Main {
             short places = 15;
             course.setPlaces(places);
             course.setLevel(levelDAO.getOne(3L));
-            course.setTutor(tutorDAO.getOne(3L));
+            course.setTutor(tutorDAO.getOne(1L));
             course.setStartDate(LocalDate.of(2019, 4, 12));
             course.setTypeOfCourse(typeOfCourseDAO.getOne(3L));
             courseDAO.save(course);
