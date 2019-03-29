@@ -53,4 +53,12 @@ public class Language {
     public void setScheduleMakers(Set<ScheduleMaker> scheduleMakers) {
         this.scheduleMakers = scheduleMakers;
     }
+
+    @Override
+    public String toString() {
+        return "Language{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
